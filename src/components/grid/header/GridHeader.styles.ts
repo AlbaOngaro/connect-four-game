@@ -15,7 +15,7 @@ export const button = css`
   padding: 0;
 	opacity: 0;
 
-  &:hover {
+  &:hover:not(:disabled) {
 		outline: none;
 		opacity: 1;
   }

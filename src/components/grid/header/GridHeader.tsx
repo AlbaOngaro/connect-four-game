@@ -44,19 +44,28 @@ export function GridHeader({ grid, setGrid }: Props) {
 
   return (
     <header css={styles.header}>
-      {grid[0].map((_, i) => (
-        <button css={styles.button} onClick={() => addPieceAtColumn(i)} key={i}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={
-              currentPlayer === Value.P1
-                ? "/images/marker-red.svg"
-                : "/images/marker-yellow.svg"
-            }
-            alt="marker"
-          />
-        </button>
-      ))}
+      {grid[0].map((_, i) => {
+        const disabled = grid.every((row) => row[i] !== 0);
+        
+        return (
+          <button
+            disabled={disabled}
+            css={styles.button}
+            onClick={() => addPieceAtColumn(i)}
+            key={i}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={
+                currentPlayer === Value.P1
+                  ? "/images/marker-red.svg"
+                  : "/images/marker-yellow.svg"
+              }
+              alt="marker"
+            />
+          </button>
+        )
+      })}
     </header>
   );
 }
