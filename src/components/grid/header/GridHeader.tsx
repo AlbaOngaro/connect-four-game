@@ -13,8 +13,6 @@ export function GridHeader({ grid, setGrid }: Props) {
   const { currentPlayer, setCurrentPlayer } = useCurrentPlayer();
 
   function addPieceAtColumn(column: number) {
-    console.debug(currentPlayer);
-    
     setGrid((rows) => {
       const rowToReplace = rows.findLastIndex(
         (row) => row[column] === Value.Empty
@@ -34,8 +32,6 @@ export function GridHeader({ grid, setGrid }: Props) {
         });
       });
     });
-
-
 
     setCurrentPlayer((curr) => {
       if (curr === Value.P1) {

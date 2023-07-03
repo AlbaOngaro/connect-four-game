@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as styles from "./Grid.styles";
 import { Piece } from "components/piece/Piece";
 import { GridHeader } from "components/grid/header/GridHeader";
-import { Value } from "types";
+import { hasFourInARow } from "utils/hasFourInARow";
+import { getInitialGrid } from "utils/getInitialGrid";
 
 export function Grid() {
-  const [grid, setGrid] = useState<number[][]>(() => {
-    const rows = new Array(6).fill(Value.Empty);
-    return rows.map(() => {
-      const cells = new Array(7).fill(Value.Empty);
-      return cells;
-    });
-  });
+  const [grid, setGrid] = useState<number[][]>(getInitialGrid());
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (hasFourInARow(grid)) {
+        alert('Four in a row!');
+        setGrid(getInitialGrid());
+      }
+    }, 250);
+  }, [grid]);
 
   return (
     <div>
