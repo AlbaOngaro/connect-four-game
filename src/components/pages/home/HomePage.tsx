@@ -4,9 +4,20 @@ import { Button } from "components/button/Button";
 
 import * as styles from "./HomePage.styles";
 import { useRef } from "react";
+import { useGameState } from "providers/game-state/GameStateProvider";
+import { Mode } from "types";
+import { useRouter } from "next/router";
 
 export function HomePage() {
+  const router = useRouter();
   const dialog = useRef<HTMLDialogElement>(null);
+
+  const { setMode } = useGameState();
+
+  const start = (mode: Mode) => {
+    setMode(mode);
+    router.push("/game");
+  }
 
   return (
     <section css={styles.container}>
@@ -15,10 +26,10 @@ export function HomePage() {
           <img src="/images/logo.svg" alt="logo" />
         </header>
         <main css={styles.main}>
-          <Button css={styles.button} variant="danger">
+          <Button css={styles.button} variant="danger" onClick={() => start(Mode.PvC)}>
             PLAY VS CPU <img src="/images/player-vs-cpu.svg" alt="PvC" />
           </Button>
-          <Button css={styles.button} variant="primary">
+          <Button css={styles.button} variant="primary" onClick={() => start(Mode.PvP)}>
             PLAY VS PLAYER <img src="/images/player-vs-player.svg" alt="PvP" />
           </Button>
           <Button

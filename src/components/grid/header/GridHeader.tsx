@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Value } from "types";
 
 import * as styles from "./GridHeader.styles";
-import { useCurrentPlayer } from "providers/current-player/CurrentPlayerProvider";
+import { useGameState } from "providers/game-state/GameStateProvider";
 
 interface Props {
   grid: number[][];
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function GridHeader({ grid, setGrid }: Props) {
-  const { currentPlayer, setCurrentPlayer } = useCurrentPlayer();
+  const { currentPlayer, setCurrentPlayer } = useGameState();
 
   function addPieceAtColumn(column: number) {
     setGrid((rows) => {
