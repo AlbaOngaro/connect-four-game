@@ -4,6 +4,7 @@ import { Piece } from "components/piece/Piece";
 import { GridHeader } from "components/grid/header/GridHeader";
 import { hasFourInARow } from "utils/hasFourInARow";
 import { getInitialGrid } from "utils/getInitialGrid";
+import { Footer } from "components/grid/footer/Footer";
 
 export function Grid() {
   const [grid, setGrid] = useState<number[][]>(getInitialGrid());
@@ -29,6 +30,8 @@ export function Grid() {
             ))
           )}
         </div>
+
+        <Footer />
       </article>
     </div>
   );

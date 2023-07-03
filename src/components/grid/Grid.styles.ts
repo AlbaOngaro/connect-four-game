@@ -5,7 +5,7 @@ export const container = css`
   background-repeat: no-repeat;
 	background-size: cover;
   width: 632px;
-  height: 584px;
+  height: 594px;
   position: relative;
 
   &::after {
