@@ -4,7 +4,7 @@ export const header = css`
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-gap: 24px;
-  padding: 20px 20px 0;
+  padding: 0 20px 0;
 `;
 
 export const button = css`
