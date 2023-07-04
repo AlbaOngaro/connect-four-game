@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { useGameState } from "providers/game-state/GameStateProvider";
+import {  useGameStateContext } from "providers/game-state/GameStateProvider";
 import * as styles from "./Footer.styles";
-import { Value } from "types";
+import { Player } from "types";
 import { useEffect, useState } from "react";
 
 export function Footer() {
-  const { currentPlayer, setCurrentPlayer } = useGameState();
+  const { state, dispatch } = useGameStateContext();
 
   const [seconds, setSeconds] = useState(15);
 
@@ -27,19 +27,24 @@ export function Footer() {
 
   useEffect(() => {
     if (seconds === 0) {
-      setCurrentPlayer((curr) => (curr === Value.P1 ? Value.P2 : Value.P1));
+      dispatch({
+        type: 'SET_CURRENT_PLAYER',
+        payload: {
+          currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
 
   useEffect(() => {
     setSeconds(15);
-  }, [currentPlayer]);
+  }, [state.currentPlayer]);
 
   return (
     <footer css={styles.footer}>
-      <div css={styles.marker(currentPlayer)}>
-        <p>Player {currentPlayer}&rsquo;s turn</p>
+      <div css={styles.marker(state.currentPlayer)}>
+        <p>Player {state.currentPlayer}&rsquo;s turn</p>
         <h3>{seconds}s</h3>
       </div>
     </footer>

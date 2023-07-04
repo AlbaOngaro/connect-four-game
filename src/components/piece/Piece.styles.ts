@@ -1,5 +1,5 @@
 import { css, keyframes } from "@emotion/react";
-import { Value } from "types";
+import { Player } from "types";
 
 const slideIn = (row: number) => keyframes`
 	from {
@@ -11,13 +11,13 @@ const slideIn = (row: number) => keyframes`
 }
 `;
 
-export const piece = (value: Value, row: number) => css`
+export const piece = (value: Player, row: number) => css`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   border-radius: 100vw;
-  background-color: ${value === Value.P1 ? "#FD6687" : "#FFCE67"};
+  background-color: ${value === Player.P1 ? "#FD6687" : "#FFCE67"};
   animation: ${slideIn(row)} 0.3s forwards;
 `;

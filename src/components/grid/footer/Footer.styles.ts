@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { Value } from "types";
+import { Player } from "types";
 
 export const footer = css`
   position: absolute;
@@ -11,7 +11,7 @@ export const footer = css`
   height: fit-content;
 `;
 
-export const marker = (currentPlayer: Value) => css`
+export const marker = (currentPlayer: Player) => css`
   width: 191px;
   height: 150px;
   flex-shrink: 0;
@@ -19,11 +19,11 @@ export const marker = (currentPlayer: Value) => css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(${currentPlayer === Value.P1 ? "/images/turn-background-red.svg" : "/images/turn-background-yellow.svg"});
+  background-image: url(${currentPlayer === Player.P1 ? "/images/turn-background-red.svg" : "/images/turn-background-yellow.svg"});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  color: ${currentPlayer === Value.P1 ? "#FFF" : "#000000"};
+  color: ${currentPlayer === Player.P1 ? "#FFF" : "#000000"};
 
   & p {
     margin: 36px 0 0;

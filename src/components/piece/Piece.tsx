@@ -1,16 +1,16 @@
 import { PropsWithChildren } from "react";
 
-import { Value } from "types";
+import { Player } from "types";
 
 import * as styles from "./Piece.styles";
 
 interface Props extends PropsWithChildren {
-  value: Value;
+  value: Player;
   row: number;
 }
 
 export function Piece({ value, row }: Props) {
-  if (value === Value.Empty) {
+  if (!value) {
     return <span />;
   }
 

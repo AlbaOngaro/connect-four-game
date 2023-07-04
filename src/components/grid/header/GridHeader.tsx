@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
-import { Value } from "types";
+import { Player } from "types";
 
 import * as styles from "./GridHeader.styles";
-import { useGameState } from "providers/game-state/GameStateProvider";
+import { useGameState, useGameStateContext } from "providers/game-state/GameStateProvider";
 
 interface Props {
   grid: number[][];
@@ -10,12 +10,12 @@ interface Props {
 }
 
 export function GridHeader({ grid, setGrid }: Props) {
-  const { currentPlayer, setCurrentPlayer } = useGameState();
+  const { state, dispatch } = useGameStateContext();
 
   function addPieceAtColumn(column: number) {
     setGrid((rows) => {
       const rowToReplace = rows.findLastIndex(
-        (row) => row[column] === Value.Empty
+        (row) => !row[column]
       );
 
       return rows.map((row, index) => {
@@ -28,16 +28,15 @@ export function GridHeader({ grid, setGrid }: Props) {
             return cell;
           }
 
-          return currentPlayer;
+          return state.currentPlayer;
         });
       });
     });
 
-    setCurrentPlayer((curr) => {
-      if (curr === Value.P1) {
-        return Value.P2;
-      } else {
-        return Value.P1;
+    dispatch({
+      type: 'SET_CURRENT_PLAYER',
+      payload: {
+        currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1
       }
     });
   }
@@ -57,7 +56,7 @@ export function GridHeader({ grid, setGrid }: Props) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={
-                currentPlayer === Value.P1
+                state.currentPlayer === Player.P1
                   ? "/images/marker-red.svg"
                   : "/images/marker-yellow.svg"
               }

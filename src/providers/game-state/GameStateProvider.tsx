@@ -1,39 +1,46 @@
 import {
   Dispatch,
   PropsWithChildren,
-  SetStateAction,
   createContext,
   useContext,
-  useState,
+  useReducer,
 } from "react";
-import { Mode, Value } from "types";
+
+import { initialState } from './state';
+import { reducer } from './reducer';
+
+import { State, Action } from './types';
 
 type GameStateContextValue = {
-  currentPlayer: Value;
-  setCurrentPlayer: Dispatch<SetStateAction<Value>>;
-  mode: Mode,
-  setMode: Dispatch<SetStateAction<Mode>>;
+  state: State;
+  dispatch: Dispatch<Action>
 };
 
 const GameStateContext = createContext<GameStateContextValue>({
-  currentPlayer: Value.P1,
-  setCurrentPlayer: () => {},
-  mode: Mode.PvP,
-  setMode: () => {}
+  state: initialState,
+  dispatch: () => {}
 });
 
 export function GameStateProvider({ children }: PropsWithChildren) {
-  const [currentPlayer, setCurrentPlayer] = useState(Value.P1);
-  const [mode, setMode] = useState(Mode.PvP);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <GameStateContext.Provider value={{ currentPlayer, setCurrentPlayer, mode, setMode }}>
+    <GameStateContext.Provider value={{ state, dispatch }}>
       {children}
     </GameStateContext.Provider>
   );
 }
 
+export function useGameStateContext() {
+  return useContext(GameStateContext);
+}
 
 export function useGameState() {
-	return useContext(GameStateContext);
+	const { state } = useGameStateContext();
+  return state;
+}
+
+export function useDispatchGameStateAction() {
+  const { dispatch } = useGameStateContext();
+  return dispatch;
 }

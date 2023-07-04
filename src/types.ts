@@ -1,5 +1,4 @@
-export enum Value {
-  Empty = 0,
+export enum Player {
   P1 = 1,
   P2 = 2,
 }
