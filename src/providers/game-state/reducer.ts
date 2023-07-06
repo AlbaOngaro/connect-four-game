@@ -2,6 +2,8 @@ import { Reducer } from "react";
 
 import { State, Action } from "./types";
 import { Player } from "types";
+import { getInitialGrid } from "utils/getInitialGrid";
+import { hasFourInARow } from "utils/hasFourInARow";
 
 export const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
@@ -19,11 +21,37 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         currentPlayer:
           state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
       };
-    case "SET_CURRENT_PLAYER":
+    case 'START_NEW_TURN': {
       return {
         ...state,
-        currentPlayer: action.payload.player,
-      };
+        currentPlayer: Player.P1,
+        winner: null,
+        grid: getInitialGrid(),
+        score: {
+          ...state.score,
+          [state.winner as Player]: state.score[state.winner as Player]+1,
+        }
+      }
+    };
+    case 'SET_WINNER':
+      return {
+        ...state,
+        winner: state.currentPlayer,
+      }
+    case 'SET_GRID':
+      if (hasFourInARow(action.payload.grid)) {
+        return {
+          ...state,
+          grid: action.payload.grid,
+          winner: state.currentPlayer
+        }
+      }
+
+      return {
+        ...state,
+        grid: action.payload.grid,
+        currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
+      }
     case "SET_MODE":
       return {
         ...state,

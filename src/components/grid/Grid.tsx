@@ -5,14 +5,14 @@ import { GridHeader } from "components/grid/header/GridHeader";
 import { hasFourInARow } from "utils/hasFourInARow";
 import { getInitialGrid } from "utils/getInitialGrid";
 import { GridFooter } from "components/grid/footer/GridFooter";
-import { useDispatchGameStateAction } from "providers/game-state/GameStateProvider";
+import { useDispatchGameStateAction, useGameState } from "providers/game-state/GameStateProvider";
 
 export function Grid() {
-  const [grid, setGrid] = useState<number[][]>(getInitialGrid());
+  const { grid } = useGameState();
 
   return (
     <div>
-      <GridHeader grid={grid} setGrid={setGrid} />
+      <GridHeader  />
 
       <article css={styles.container}>
         <div css={styles.grid}>
@@ -23,7 +23,7 @@ export function Grid() {
           )}
         </div>
 
-        <GridFooter grid={grid} setGrid={setGrid} />
+        <GridFooter />
       </article>
     </div>
   );

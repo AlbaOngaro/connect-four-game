@@ -8,6 +8,8 @@ export interface State {
     [Player.P2]: number;
   };
   paused: boolean;
+  grid: number[][];
+  winner: Player | null;
 }
 
 interface SetModeAction {
@@ -29,10 +31,18 @@ interface TogglePausedAction {
   type: "TOGGLE_PAUSED";
 }
 
-interface SetCurrentPlayerAction {
-  type: "SET_CURRENT_PLAYER",
+interface StartNewTurnAction {
+  type: 'START_NEW_TURN';
+}
+
+interface SetWinnerAction {
+  type: 'SET_WINNER';
+}
+
+interface SetGridAction {
+  type: 'SET_GRID';
   payload: {
-    player: Player
+    grid: number[][]
   }
 }
 
@@ -41,4 +51,6 @@ export type Action =
   | ToggleCurrentPlayerAction
   | IncreaseCurrentPlayerScoreAction
   | TogglePausedAction
-  | SetCurrentPlayerAction;
+  | StartNewTurnAction 
+  | SetWinnerAction
+  | SetGridAction;

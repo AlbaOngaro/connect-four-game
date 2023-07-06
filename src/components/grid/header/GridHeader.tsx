@@ -3,23 +3,18 @@ import { Player } from "types";
 
 import * as styles from "./GridHeader.styles";
 import {
-  useGameState,
   useGameStateContext,
 } from "providers/game-state/GameStateProvider";
 
-interface Props {
-  grid: number[][];
-  setGrid: Dispatch<SetStateAction<number[][]>>;
-}
 
-export function GridHeader({ grid, setGrid }: Props) {
-  const { state, dispatch } = useGameStateContext();
+export function GridHeader() {
+  const { state: { grid, winner, currentPlayer }, dispatch } = useGameStateContext();
 
   function addPieceAtColumn(column: number) {
-    setGrid((rows) => {
-      const rowToReplace = rows.findLastIndex((row) => !row[column]);
+    const updateGrid = () => {
+      const rowToReplace = grid.findLastIndex((row) => !row[column]);
 
-      return rows.map((row, index) => {
+      return grid.map((row, index) => {
         if (index !== rowToReplace) {
           return row;
         }
@@ -29,16 +24,23 @@ export function GridHeader({ grid, setGrid }: Props) {
             return cell;
           }
 
-          return state.currentPlayer;
+          return currentPlayer;
         });
       });
+    }
+
+    dispatch({
+      type: 'SET_GRID',
+      payload: {
+        grid: updateGrid(),
+      }
     });
   }
 
   return (
     <header css={styles.header}>
       {grid[0].map((_, i) => {
-        const disabled = grid.every((row) => row[i] !== 0);
+        const disabled = grid.every((row) => row[i] !== 0) || Boolean(winner);
 
         return (
           <button
@@ -50,7 +52,7 @@ export function GridHeader({ grid, setGrid }: Props) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={
-                state.currentPlayer === Player.P1
+                currentPlayer === Player.P1
                   ? "/images/marker-red.svg"
                   : "/images/marker-yellow.svg"
               }
