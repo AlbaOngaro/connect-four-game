@@ -58,12 +58,3 @@ export function hasFourInARow(grid: number[][]): boolean {
 
   return false;
 }
-
-console.log(hasFourInARow([
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 1, 0, 0, 0, 0, 2],
-]));

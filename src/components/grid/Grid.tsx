@@ -4,19 +4,11 @@ import { Piece } from "components/piece/Piece";
 import { GridHeader } from "components/grid/header/GridHeader";
 import { hasFourInARow } from "utils/hasFourInARow";
 import { getInitialGrid } from "utils/getInitialGrid";
-import { Footer } from "components/grid/footer/Footer";
+import { GridFooter } from "components/grid/footer/GridFooter";
+import { useDispatchGameStateAction } from "providers/game-state/GameStateProvider";
 
 export function Grid() {
   const [grid, setGrid] = useState<number[][]>(getInitialGrid());
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (hasFourInARow(grid)) {
-        alert('Four in a row!');
-        setGrid(getInitialGrid());
-      }
-    }, 250);
-  }, [grid]);
 
   return (
     <div>
@@ -31,7 +23,7 @@ export function Grid() {
           )}
         </div>
 
-        <Footer />
+        <GridFooter grid={grid} setGrid={setGrid} />
       </article>
     </div>
   );

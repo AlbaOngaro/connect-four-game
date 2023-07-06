@@ -17,26 +17,28 @@ interface SetModeAction {
   };
 }
 
-interface SetCurrentPlayerAction {
-  type: "SET_CURRENT_PLAYER";
-  payload: {
-    currentPlayer: Player;
-  };
+interface ToggleCurrentPlayerAction {
+  type: "TOGGLE_CURRENT_PLAYER";
 }
 
-interface IncreasePlayerScoreAction {
-  type: "INCREASE_PLAYER_SCORE";
-  payload: {
-    player: Player;
-  };
+interface IncreaseCurrentPlayerScoreAction {
+  type: "INCREASE_CURRENT_PLAYER_SCORE";
 }
 
 interface TogglePausedAction {
   type: "TOGGLE_PAUSED";
 }
 
+interface SetCurrentPlayerAction {
+  type: "SET_CURRENT_PLAYER",
+  payload: {
+    player: Player
+  }
+}
+
 export type Action =
   | SetModeAction
-  | SetCurrentPlayerAction
-  | IncreasePlayerScoreAction
-  | TogglePausedAction;
+  | ToggleCurrentPlayerAction
+  | IncreaseCurrentPlayerScoreAction
+  | TogglePausedAction
+  | SetCurrentPlayerAction;

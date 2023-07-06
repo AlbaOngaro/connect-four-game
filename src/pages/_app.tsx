@@ -9,11 +9,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const { asPath } = useRouter();
 
   return (
-    <>
-      <Global styles={globalStyles(asPath === "/game")} />
-      <GameStateProvider>
-        <Component {...pageProps} />
-      </GameStateProvider>
-    </>
+    <GameStateProvider>
+      <Global styles={globalStyles(asPath === "/game", null)} />
+      <Component {...pageProps} />
+    </GameStateProvider>
   );
 }

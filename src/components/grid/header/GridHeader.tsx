@@ -2,7 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 import { Player } from "types";
 
 import * as styles from "./GridHeader.styles";
-import { useGameState, useGameStateContext } from "providers/game-state/GameStateProvider";
+import {
+  useGameState,
+  useGameStateContext,
+} from "providers/game-state/GameStateProvider";
 
 interface Props {
   grid: number[][];
@@ -14,9 +17,7 @@ export function GridHeader({ grid, setGrid }: Props) {
 
   function addPieceAtColumn(column: number) {
     setGrid((rows) => {
-      const rowToReplace = rows.findLastIndex(
-        (row) => !row[column]
-      );
+      const rowToReplace = rows.findLastIndex((row) => !row[column]);
 
       return rows.map((row, index) => {
         if (index !== rowToReplace) {
@@ -32,20 +33,13 @@ export function GridHeader({ grid, setGrid }: Props) {
         });
       });
     });
-
-    dispatch({
-      type: 'SET_CURRENT_PLAYER',
-      payload: {
-        currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1
-      }
-    });
   }
 
   return (
     <header css={styles.header}>
       {grid[0].map((_, i) => {
         const disabled = grid.every((row) => row[i] !== 0);
-        
+
         return (
           <button
             disabled={disabled}
@@ -63,7 +57,7 @@ export function GridHeader({ grid, setGrid }: Props) {
               alt="marker"
             />
           </button>
-        )
+        );
       })}
     </header>
   );

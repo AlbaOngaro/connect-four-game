@@ -1,21 +1,28 @@
 import { Reducer } from "react";
 
 import { State, Action } from "./types";
+import { Player } from "types";
 
 export const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
-    case "INCREASE_PLAYER_SCORE":
+    case "INCREASE_CURRENT_PLAYER_SCORE":
       return {
         ...state,
         score: {
           ...state.score,
-          [action.payload.player]: state.score[action.payload.player] + 1,
+          [state.currentPlayer]: state.score[state.currentPlayer] + 1,
         },
+      };
+    case "TOGGLE_CURRENT_PLAYER":
+      return {
+        ...state,
+        currentPlayer:
+          state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
       };
     case "SET_CURRENT_PLAYER":
       return {
         ...state,
-        currentPlayer: action.payload.currentPlayer,
+        currentPlayer: action.payload.player,
       };
     case "SET_MODE":
       return {

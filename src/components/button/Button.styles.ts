@@ -39,4 +39,25 @@ export const button = (variant: Variant) => [
       background: var(--red, #fd6687);
       color: var(--white, #fff);
     `,
+  variant === "tertiary" && css`
+    border-radius: 20px;
+    background: var(--dark-purple, #5C2DD5);
+    color: var(--white, #fff);
+    border: none;
+    box-shadow: none;
+    color: var(--white, #FFF);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    padding: 10px 20px;
+
+    &:hover {
+			cursor: pointer;
+      border: none;
+      box-shadow: none;
+    }
+  `
 ];

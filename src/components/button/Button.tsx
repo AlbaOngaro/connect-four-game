@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 import * as styles from './Button.styles';
 
-export type Variant = "primary" | "secondary" | "danger";
+export type Variant = "primary" | "secondary" | "tertiary" | "danger";
 
 interface Props
   extends Omit<
