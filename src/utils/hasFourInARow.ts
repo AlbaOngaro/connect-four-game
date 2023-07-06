@@ -1,7 +1,9 @@
 import { Grid } from "types";
 
 export function hasFourInARow(grid: Grid): boolean {
-  for (let row = 0; row < grid.length; row++) {
+  const rows = grid.length - 1;
+  
+  for (let row = rows; row >= 0; row--) {
     for (let col = 0; col < grid[row].length; col++) {
       const cell = grid[row][col];
 
