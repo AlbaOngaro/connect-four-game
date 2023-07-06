@@ -2,12 +2,12 @@
 import { useGameStateContext } from "providers/game-state/GameStateProvider";
 import * as styles from "./GridFooter.styles";
 import { useEffect, useRef, useState } from "react";
-import { hasFourInARow } from "utils/hasFourInARow";
 import { Button } from "components/button/Button";
+import { addRandomPieceToGrid } from "utils/addRandomPieceToGrid";
 
 export function GridFooter() {
   const timer = useRef<NodeJS.Timer>();
-  const { state: { winner, currentPlayer }, dispatch } = useGameStateContext();
+  const { state: { winner, currentPlayer,grid }, dispatch } = useGameStateContext();
 
   const [seconds, setSeconds] = useState(15);
 
@@ -30,7 +30,10 @@ export function GridFooter() {
   useEffect(() => {
     if (seconds === 0) {
       dispatch({
-        type: "TOGGLE_CURRENT_PLAYER",
+        type: "SET_GRID",
+        payload: {
+          grid: addRandomPieceToGrid(grid, currentPlayer)
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,4 +1,4 @@
-import { Mode, Player } from "types";
+import { Grid, Mode, Player } from "types";
 
 export interface State {
   mode: Mode | null;
@@ -8,7 +8,7 @@ export interface State {
     [Player.P2]: number;
   };
   paused: boolean;
-  grid: number[][];
+  grid: Grid;
   winner: Player | null;
 }
 
