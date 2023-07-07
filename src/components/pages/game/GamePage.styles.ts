@@ -1,12 +1,28 @@
 import { css } from "@emotion/react";
 
 export const container = css`
-  display: grid;
-  grid-template-columns: 1fr 632px 1fr;
-  grid-gap: 60px;
   width: 100vw;
   height: 100vh;
-  padding-top: 52px;
+  padding-top: 32px;
+`;
+
+export const controls = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 632px;
+  margin: 0 auto 16px;
+
+  & button {
+    height: fit-content;
+  }
+`;
+
+export const grid = css`
+  display: grid;
+  grid-template-columns: 1fr 632px 1fr;
+  grid-gap: 40px;
 `;
 
 export const dialog = css`

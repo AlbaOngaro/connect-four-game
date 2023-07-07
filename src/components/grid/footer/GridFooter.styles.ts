@@ -3,7 +3,7 @@ import { Player } from "types";
 
 export const footer = css`
   position: absolute;
-  bottom: -110px;
+  bottom: -94px;
   z-index: 10;
   display: flex;
   justify-content: center;

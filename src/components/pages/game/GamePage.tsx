@@ -39,9 +39,19 @@ export function GamePage() {
 
   return (
     <section css={styles.container}>
-      <Score player={Player.P1} />
-      <Grid />
-      <Score player={Player.P2} />
+      <div css={styles.controls}>
+        <Button variant="tertiary">MENU</Button>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/logo.svg" alt="logo" />
+        <Button variant="tertiary">RESTART</Button>
+      </div>
+
+      <div css={styles.grid}>
+        <Score player={Player.P1} />
+        <Grid />
+        <Score player={Player.P2} />
+      </div>
+
       <dialog css={styles.dialog} ref={dialog}>
         <h2>PAUSE</h2>
         <Button
