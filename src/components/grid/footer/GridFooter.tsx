@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "components/button/Button";
 import { addRandomPieceToGrid } from "utils/addRandomPieceToGrid";
 
+const TURN_DURATION = 15;
+
 export function GridFooter() {
   const timer = useRef<NodeJS.Timer>();
   const { state: { winner, currentPlayer,grid }, dispatch } = useGameStateContext();
 
-  const [seconds, setSeconds] = useState(15);
+  const [seconds, setSeconds] = useState(TURN_DURATION);
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -40,7 +42,7 @@ export function GridFooter() {
   }, [seconds]);
 
   useEffect(() => {
-    setSeconds(15);
+    setSeconds(TURN_DURATION);
   }, [currentPlayer]);
 
   useEffect(() => {

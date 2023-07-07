@@ -23,15 +23,36 @@ export function getAvailableCoordinates(grid: Grid): Coordinates {
 export function getWeighedCoordinates(
   coordinates: Coordinates,
   grid: Grid,
-  player: Player
 ): Map<Coordinate, number> {
   const map = new Map<Coordinate, number>();
 
-  for (let [x, y] of coordinates) {
-    map.set([x, y], 1 / coordinates.length);
+  coordinates.forEach(([x, y], i) => {
+    const currRow = grid[x];
+    const nextRow = grid[x + 1];
+    const secondNextRow = grid[x + 2];
+
+    if (
+      (currRow[y - 1] && currRow[y - 2] && currRow[y + 1]) ||
+      (nextRow && secondNextRow && nextRow[y] && secondNextRow[y])
+    ) {
+      map.set([x, y], (1 / coordinates.length) * 2);
+    } else {
+      map.set([x, y], 1 / coordinates.length);
+    }
+  });
+
+  let total = 0;
+  for (let val of map.values()) {
+    total += val;
   }
 
-  console.debug(map);
+  if (total > 1) {
+    const difference = total - 1;
+
+    for (let [key, val] of map) {
+      map.set(key, val - difference / map.size);
+    }
+  }
 
   return map;
 }
@@ -50,24 +71,8 @@ export function getRandomWeighedCoordinate(
 
 export function addRandomPieceToGrid(grid: Grid, player: Player): Grid {
   const coordinates = getAvailableCoordinates(grid);
-  const weighted = getWeighedCoordinates(coordinates, grid, player);
-  return getRandomWeighedCoordinate(weighted);
-
-  // const [x, y] = getRandomWeighedCoordinate(weighted);
-  // grid[x][y] = player;
-  // return grid;
+  const weighted = getWeighedCoordinates(coordinates, grid);
+  const [x, y] = getRandomWeighedCoordinate(weighted);
+  grid[x][y] = player;
+  return grid;
 }
-
-console.log(
-  addRandomPieceToGrid(
-    [
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-    ],
-    Player.P1
-  )
-);
