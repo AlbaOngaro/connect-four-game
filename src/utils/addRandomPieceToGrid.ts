@@ -1,22 +1,18 @@
 import { Grid, Player } from "../types";
+type Coordinate = [number, number];
+type Coordinates = Coordinate[];
 
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+export function getAvailableCoordinates(grid: Grid): Coordinates {
+  const coordinates: Coordinates = [];
 
-export function getAvailableCoordinates(grid: Grid) {
-  const coordinates: Grid = [];
-
-	const rows = grid.length - 1
+  const rows = grid.length - 1;
 
   for (let row = rows; row >= 0; row--) {
-    for (let col = 0; col < grid[row].length - 1; col++) {
+    for (let col = 0; col < grid[row].length; col++) {
       const cell = grid[rows - row][col];
-			
+
       if (!cell) {
-        coordinates[col] = [rows - row, col]
+        coordinates[col] = [rows - row, col];
       }
     }
   }
@@ -24,14 +20,54 @@ export function getAvailableCoordinates(grid: Grid) {
   return coordinates;
 }
 
+export function getWeighedCoordinates(
+  coordinates: Coordinates,
+  grid: Grid,
+  player: Player
+): Map<Coordinate, number> {
+  const map = new Map<Coordinate, number>();
+
+  for (let [x, y] of coordinates) {
+    map.set([x, y], 1 / coordinates.length);
+  }
+
+  console.debug(map);
+
+  return map;
+}
+
+export function getRandomWeighedCoordinate(
+  spec: Map<Coordinate, number>
+): Coordinate {
+  let sum = 0;
+  let r = Math.random();
+
+  for (let [coordinate, weight] of spec) {
+    sum += weight;
+    if (r <= sum) return coordinate;
+  }
+}
+
 export function addRandomPieceToGrid(grid: Grid, player: Player): Grid {
   const coordinates = getAvailableCoordinates(grid);
+  const weighted = getWeighedCoordinates(coordinates, grid, player);
+  return getRandomWeighedCoordinate(weighted);
 
-  const idx = getRandomInt(0, coordinates.length - 1);
-
-  const [x, y] = coordinates[idx];
-
-  grid[x][y] = player;
-
-  return grid;
+  // const [x, y] = getRandomWeighedCoordinate(weighted);
+  // grid[x][y] = player;
+  // return grid;
 }
+
+console.log(
+  addRandomPieceToGrid(
+    [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+    ],
+    Player.P1
+  )
+);
