@@ -47,6 +47,10 @@ interface SetGridAction {
   }
 }
 
+interface ResetAction {
+  type: 'RESET'
+}
+
 export type Action =
   | SetModeAction
   | ToggleCurrentPlayerAction
@@ -54,4 +58,5 @@ export type Action =
   | TogglePausedAction
   | StartNewTurnAction 
   | SetWinnerAction
-  | SetGridAction;
+  | SetGridAction
+  | ResetAction;

@@ -72,6 +72,18 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         paused: !state.paused,
       };
+    case 'RESET': {
+      return {
+        ...state,
+        grid: getInitialGrid(),
+        score: {
+          [Player.P1]: 0,
+          [Player.P2]: 0,
+        },
+        paused: false,
+        currentPlayer: Player.P1
+      }
+    }
     default:
       return state;
   }

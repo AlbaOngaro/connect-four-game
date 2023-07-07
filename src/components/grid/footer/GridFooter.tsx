@@ -16,27 +16,33 @@ const TURN_DURATION = 15;
 export function GridFooter() {
   const timer = useRef<NodeJS.Timer>();
   const {
-    state: { winner, currentPlayer, grid, cpu },
+    state: { winner, currentPlayer, grid, cpu, paused },
     dispatch,
   } = useGameStateContext();
 
   const [seconds, setSeconds] = useState(TURN_DURATION);
 
   useEffect(() => {
-    timer.current = setInterval(() => {
-      setSeconds((curr) => {
-        if (curr - 1 >= 0) {
-          return curr - 1;
-        }
-
-        return curr;
-      });
-    }, 1000);
+    if (paused) {
+      clearInterval(timer.current);
+      timer.current = undefined;
+    } else {
+      clearInterval(timer.current);
+      timer.current = setInterval(() => {
+        setSeconds((curr) => {
+          if (curr - 1 >= 0) {
+            return curr - 1;
+          }
+  
+          return curr;
+        });
+      }, 1000);
+    }
 
     return () => {
       clearInterval(timer.current);
-    };
-  }, []);
+    }
+  }, [paused]);
 
   useEffect(() => {
     if (seconds === 0) {
@@ -67,7 +73,7 @@ export function GridFooter() {
         clearTimeout(timeout);
       }, getRandomInt(1, TURN_DURATION) * 1000);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPlayer, cpu]);
 
   useEffect(() => {
