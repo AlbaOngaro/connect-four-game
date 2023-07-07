@@ -10,6 +10,7 @@ export interface State {
   paused: boolean;
   grid: Grid;
   winner: Player | null;
+  cpu: Player | null;
 }
 
 interface SetModeAction {

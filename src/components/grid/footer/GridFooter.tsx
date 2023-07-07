@@ -5,11 +5,20 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "components/button/Button";
 import { addRandomPieceToGrid } from "utils/addRandomPieceToGrid";
 
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const TURN_DURATION = 15;
 
 export function GridFooter() {
   const timer = useRef<NodeJS.Timer>();
-  const { state: { winner, currentPlayer,grid }, dispatch } = useGameStateContext();
+  const {
+    state: { winner, currentPlayer, grid, cpu },
+    dispatch,
+  } = useGameStateContext();
 
   const [seconds, setSeconds] = useState(TURN_DURATION);
 
@@ -34,8 +43,8 @@ export function GridFooter() {
       dispatch({
         type: "SET_GRID",
         payload: {
-          grid: addRandomPieceToGrid(grid, currentPlayer)
-        }
+          grid: addRandomPieceToGrid(grid, currentPlayer),
+        },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +53,22 @@ export function GridFooter() {
   useEffect(() => {
     setSeconds(TURN_DURATION);
   }, [currentPlayer]);
+
+  useEffect(() => {
+    if (currentPlayer === cpu) {
+      const timeout = setTimeout(() => {
+        dispatch({
+          type: "SET_GRID",
+          payload: {
+            grid: addRandomPieceToGrid(grid, currentPlayer),
+          },
+        });
+
+        clearTimeout(timeout);
+      }, getRandomInt(1, TURN_DURATION) * 1000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPlayer, cpu]);
 
   useEffect(() => {
     if (winner) {
@@ -61,15 +86,15 @@ export function GridFooter() {
             variant="tertiary"
             onClick={() => {
               dispatch({
-                type: 'START_NEW_TURN'
+                type: "START_NEW_TURN",
               });
-              
+
               timer.current = setInterval(() => {
                 setSeconds((curr) => {
                   if (curr - 1 >= 0) {
                     return curr - 1;
                   }
-          
+
                   return curr;
                 });
               }, 1000);

@@ -12,5 +12,6 @@ export const initialState: State = {
   },
   paused: false,
   grid: getInitialGrid(),
-  winner: null
+  winner: null,
+  cpu: null
 };

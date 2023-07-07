@@ -1,7 +1,7 @@
 import { Reducer } from "react";
 
 import { State, Action } from "./types";
-import { Player } from "types";
+import { Mode, Player } from "types";
 import { getInitialGrid } from "utils/getInitialGrid";
 import { hasFourInARow } from "utils/hasFourInARow";
 
@@ -52,11 +52,21 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         grid: action.payload.grid,
         currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
       }
-    case "SET_MODE":
+    case "SET_MODE": {
+      if (action.payload.mode === Mode.PvC) {
+        return {
+          ...state,
+          mode: action.payload.mode,
+          cpu: Player.P2
+        };
+      }
+
       return {
         ...state,
         mode: action.payload.mode,
+        cpu: null
       };
+    } 
     case "TOGGLE_PAUSED":
       return {
         ...state,

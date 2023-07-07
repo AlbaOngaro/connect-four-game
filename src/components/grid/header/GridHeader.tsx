@@ -1,14 +1,13 @@
-import { Dispatch, SetStateAction } from "react";
 import { Player } from "types";
 
 import * as styles from "./GridHeader.styles";
-import {
-  useGameStateContext,
-} from "providers/game-state/GameStateProvider";
-
+import { useGameStateContext } from "providers/game-state/GameStateProvider";
 
 export function GridHeader() {
-  const { state: { grid, winner, currentPlayer }, dispatch } = useGameStateContext();
+  const {
+    state: { grid, winner, currentPlayer, cpu },
+    dispatch,
+  } = useGameStateContext();
 
   function addPieceAtColumn(column: number) {
     const updateGrid = () => {
@@ -27,20 +26,23 @@ export function GridHeader() {
           return currentPlayer;
         });
       });
-    }
+    };
 
     dispatch({
-      type: 'SET_GRID',
+      type: "SET_GRID",
       payload: {
         grid: updateGrid(),
-      }
+      },
     });
   }
 
   return (
     <header css={styles.header}>
       {grid[0].map((_, i) => {
-        const disabled = grid.every((row) => row[i] !== 0) || Boolean(winner);
+        const disabled =
+          grid.every((row) => row[i] !== 0) ||
+          Boolean(winner) ||
+          currentPlayer === cpu;
 
         return (
           <button
