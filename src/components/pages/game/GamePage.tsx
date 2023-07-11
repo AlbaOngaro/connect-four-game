@@ -46,10 +46,10 @@ export function GamePage() {
         <Button variant="tertiary">RESTART</Button>
       </div>
 
-      <div css={styles.grid}>
-        <Score player={Player.P1} />
-        <Grid />
-        <Score player={Player.P2} />
+      <div css={styles.content}>
+        <Score player={Player.P1} css={styles.p1} />
+        <Grid css={styles.grid} />
+        <Score player={Player.P2} css={styles.p2} />
       </div>
 
       <dialog css={styles.dialog} ref={dialog}>

@@ -3,7 +3,16 @@ import { css } from "@emotion/react";
 export const container = css`
   width: 100vw;
   height: 100vh;
-  padding-top: 32px;
+  padding: 32px 64px;
+  padding: 24px 32px;
+
+  @media (min-width: 768px) {
+    padding: 32px 64px;
+  }
+
+  @media (min-width: 1440px) {
+    padding-top: 32px;
+  }
 `;
 
 export const controls = css`
@@ -19,10 +28,56 @@ export const controls = css`
   }
 `;
 
-export const grid = css`
+export const content = css`
   display: grid;
-  grid-template-columns: 1fr 632px 1fr;
-  grid-gap: 40px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-column-gap: 48px;
+  max-width: 632px;
+  margin: 0 auto;
+
+  @media (min-width: 1440px) {
+    grid-template-columns: 1fr 632px 1fr;
+    grid-gap: 40px;
+    max-width: initial;
+  }
+`;
+
+export const p1 = css`
+  grid-column: 1;
+  grid-row: 1;
+  margin-top: 0;
+
+  @media (min-width: 1440px) {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: center;
+  }
+`;
+
+export const p2 = css`
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 0;
+
+  @media (min-width: 1440px) {
+    grid-column: auto;
+    grid-row: auto;
+    align-self: center;
+  }
+`;
+
+export const grid = css`
+  grid-column: 1 / 3;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 1440px) {
+    grid-column: auto;
+    grid-row: auto;
+  }
 `;
 
 export const dialog = css`

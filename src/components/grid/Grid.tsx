@@ -7,11 +7,15 @@ import { getInitialGrid } from "utils/getInitialGrid";
 import { GridFooter } from "components/grid/footer/GridFooter";
 import { useDispatchGameStateAction, useGameState } from "providers/game-state/GameStateProvider";
 
-export function Grid() {
+interface Props {
+  className?: string;
+}
+
+export function Grid({ className }: Props) {
   const { grid } = useGameState();
 
   return (
-    <div>
+    <div className={className}>
       <GridHeader  />
 
       <article css={styles.container}>

@@ -3,12 +3,16 @@ import { Player } from "types";
 
 export const footer = css`
   position: absolute;
-  bottom: -94px;
   z-index: 10;
   display: flex;
   justify-content: center;
   width: 100%;
   height: fit-content;
+  bottom: -115px;
+
+  @media (min-width: 768px) {
+    bottom: -94px;
+  }
 `;
 
 export const marker = (currentPlayer: Player) => css`
@@ -19,7 +23,9 @@ export const marker = (currentPlayer: Player) => css`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(${currentPlayer === Player.P1? "/images/turn-background-red.svg" : "/images/turn-background-yellow.svg"});
+  background-image: ${currentPlayer === Player.P1
+    ? 'url("/images/turn-background-red.svg")'
+    : 'url("/images/turn-background-yellow.svg")'};
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
