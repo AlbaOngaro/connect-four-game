@@ -58,6 +58,7 @@ export const button = (variant: Variant) => [
 			cursor: pointer;
       border: none;
       box-shadow: none;
+      background: var(--dark-purple, #fd6687);
     }
   `
 ];

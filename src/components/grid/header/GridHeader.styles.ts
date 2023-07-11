@@ -5,6 +5,7 @@ export const header = css`
   grid-template-columns: repeat(7, minmax(0, 1fr));
   grid-gap: 24px;
   padding: 0 20px 0;
+  width: 100%;
 `;
 
 export const button = css`

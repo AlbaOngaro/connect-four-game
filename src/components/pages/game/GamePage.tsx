@@ -12,20 +12,23 @@ export function GamePage() {
   const dispatch = useDispatchGameStateAction();
   const dialog = useRef<HTMLDialogElement>(null);
 
+  function openMenu() {
+    if (dialog.current?.open) {
+      dialog.current?.close();
+    } else {
+      dialog.current?.showModal();
+    }
+
+    dispatch({
+      type: "TOGGLE_PAUSED",
+    });
+  }
+
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.code === "Escape") {
         e.preventDefault();
-
-        if (dialog.current?.open) {
-          dialog.current?.close();
-        } else {
-          dialog.current?.showModal();
-        }
-
-        dispatch({
-          type: "TOGGLE_PAUSED",
-        });
+        openMenu();
       }
     }
 
@@ -40,10 +43,21 @@ export function GamePage() {
   return (
     <section css={styles.container}>
       <div css={styles.controls}>
-        <Button variant="tertiary">MENU</Button>
+        <Button variant="tertiary" onClick={() => openMenu()}>
+          MENU
+        </Button>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/logo.svg" alt="logo" />
-        <Button variant="tertiary">RESTART</Button>
+        <Button
+          variant="tertiary"
+          onClick={() =>
+            dispatch({
+              type: "RESET",
+            })
+          }
+        >
+          RESTART
+        </Button>
       </div>
 
       <div css={styles.content}>
