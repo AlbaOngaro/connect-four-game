@@ -16,7 +16,7 @@ const TURN_DURATION = 15;
 export function GridFooter() {
   const timer = useRef<NodeJS.Timer>();
   const {
-    state: { winner, currentPlayer, grid, cpu, paused },
+    state: { winner, currentPlayer, grid, cpu, paused, score },
     dispatch,
   } = useGameStateContext();
 
@@ -81,6 +81,10 @@ export function GridFooter() {
       clearInterval(timer.current);
     }
   }, [winner]);
+
+  useEffect(() => {
+    setSeconds(TURN_DURATION);
+  }, [score]);
 
   if (winner) {
     return (
