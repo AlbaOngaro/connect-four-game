@@ -80,6 +80,7 @@ export function* startTimerSage() {
     take("TOGGLE_CURRENT_PLAYER"),
     take("SET_WINNER"),
     take("RESET"),
+    take("RESTART"),
   ]);
 
   yield cancel(bgTask);
@@ -150,7 +151,7 @@ export function* rootSaga() {
   yield all([
     takeEvery("START_TIMER", startTimerSage),
     takeEvery("START_NEW_TURN", restartTimerSaga),
-    takeEvery("RESET", restartTimerSaga),
+    takeEvery("RESTART", restartTimerSaga),
     takeEvery("TOGGLE_PAUSED", togglePausedSaga),
     takeEvery("SET_GRID", setGridSaga),
     takeEvery("TOGGLE_CURRENT_PLAYER", toggleCurrentPlayerSaga),

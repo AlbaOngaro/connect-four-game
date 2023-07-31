@@ -5,7 +5,7 @@ import { getInitialGrid } from "utils/getInitialGrid";
 import { State, Action } from "./types";
 import { Mode, Player } from "types";
 
-export const TURN_DURATION = 5;
+export const TURN_DURATION = 15;
 
 const initialState: State = {
   seconds: TURN_DURATION,
@@ -87,18 +87,16 @@ export const reducer: Reducer<State, Action> = (
         ...state,
         seconds: action.payload.seconds,
       };
-    case "RESET": {
+    case "RESTART": {
       return {
         ...state,
-        winner: null,
-        grid: getInitialGrid(),
-        score: {
-          [Player.P1]: 0,
-          [Player.P2]: 0,
-        },
-        paused: false,
         currentPlayer: Player.P1,
+        seconds: TURN_DURATION,
+        grid: getInitialGrid(),
       };
+    }
+    case "RESET": {
+      return initialState;
     }
     default:
       return state;

@@ -59,6 +59,14 @@ interface SetSecondsAction {
   };
 }
 
+export interface StartTimerAction {
+  type: "START_TIMER";
+}
+
+interface RestartAction {
+  type: "RESTART";
+}
+
 export type Action =
   | SetModeAction
   | ToggleCurrentPlayerAction
@@ -68,4 +76,6 @@ export type Action =
   | SetWinnerAction
   | SetGridAction
   | ResetAction
-  | SetSecondsAction;
+  | SetSecondsAction
+  | StartTimerAction
+  | RestartAction;

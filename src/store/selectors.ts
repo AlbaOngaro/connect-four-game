@@ -5,6 +5,8 @@ export const getState = (state: State) => state;
 
 export const getGrid = (state: State) => state.grid;
 
+export const getMode = (state: State) => state.mode;
+
 export const getScore = createSelector([getState], (state) => state.score);
 
 export const getGridHeaderData = createSelector(
