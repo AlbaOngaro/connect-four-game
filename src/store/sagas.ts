@@ -18,6 +18,12 @@ import { Mode, Player } from "types";
 import { addRandomPieceToGrid } from "utils/addRandomPieceToGrid";
 import { hasFourInARow } from "utils/hasFourInARow";
 
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const timer = (secs: number): EventChannel<number> =>
   eventChannel((emitter) => {
     const iv = setInterval(() => {
@@ -126,7 +132,7 @@ function* toggleCurrentPlayerSaga() {
   );
 
   if (mode === Mode.PvC && currentPlayer === Player.P2) {
-    yield delay(1500);
+    yield delay(getRandomInt(1, TURN_DURATION) * 1000);
     yield put({
       type: "SET_GRID",
       payload: {

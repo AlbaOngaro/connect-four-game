@@ -57,11 +57,12 @@ export const reducer: Reducer<State, Action> = (
         ...state,
         winner: state.currentPlayer,
       };
-    case "SET_GRID":
+    case "SET_GRID": {
       return {
         ...state,
         grid: action.payload.grid,
       };
+    }
     case "SET_MODE": {
       if (action.payload.mode === Mode.PvC) {
         return {
@@ -96,7 +97,10 @@ export const reducer: Reducer<State, Action> = (
       };
     }
     case "RESET": {
-      return initialState;
+      return {
+        ...initialState,
+        grid: getInitialGrid(),
+      };
     }
     default:
       return state;

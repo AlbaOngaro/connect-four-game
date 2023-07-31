@@ -10,7 +10,7 @@ export function GridFooter() {
 
   if (winner) {
     return (
-      <footer css={styles.footer}>
+      <footer css={styles.footer(true)}>
         <div css={styles.winner}>
           <p css={styles.paragraph}>Player {winner}</p>
           <h3 css={styles.heading}>WINS</h3>
@@ -30,7 +30,7 @@ export function GridFooter() {
   }
 
   return (
-    <footer css={styles.footer}>
+    <footer css={styles.footer(false)}>
       <div css={styles.marker(currentPlayer)}>
         <p css={styles.paragraph}>Player {currentPlayer}&rsquo;s turn</p>
         <h3 css={styles.heading}>{seconds}s</h3>

@@ -1,7 +1,17 @@
 import { css } from "@emotion/react";
 import { Player } from "types";
 
-export const container = (player: Player) => css`
+function getPlayerImg(player: Player, cpu: Player | null) {
+  if (player === cpu) {
+    return 'url("/images/cpu.svg")';
+  }
+
+  return player === Player.P1
+    ? 'url("/images/player-one.svg")'
+    : 'url("/images/player-two.svg")';
+}
+
+export const container = (player: Player, cpu: Player | null) => css`
   border-radius: 20px;
   border: 3px solid var(--black, #000);
   background: var(--white, #fff);
@@ -23,9 +33,7 @@ export const container = (player: Player) => css`
   }
 
   &::before {
-    content: ${player === Player.P1
-      ? 'url("/images/player-one.svg")'
-      : 'url("/images/player-two.svg")'};
+    content: ${getPlayerImg(player, cpu)};
     display: block;
     position: absolute;
   }

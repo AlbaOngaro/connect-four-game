@@ -1,19 +1,32 @@
 import { css } from "@emotion/react";
 import { Player } from "types";
 
-export const footer = css`
-  position: absolute;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: fit-content;
-  bottom: -115px;
+export const footer = (isWinner: boolean) => [
+  css`
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+  `,
+  !isWinner &&
+    css`
+      bottom: -115px;
 
-  @media (min-width: 768px) {
-    bottom: -94px;
-  }
-`;
+      @media (min-width: 768px) {
+        bottom: -94px;
+      }
+    `,
+  isWinner &&
+    css`
+      bottom: -140px;
+
+      @media (min-width: 768px) {
+        bottom: -115px;
+      }
+    `,
+];
 
 export const marker = (currentPlayer: Player) => css`
   width: 191px;

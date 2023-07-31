@@ -8,12 +8,13 @@ interface Props {
 }
 
 export function Score({ player, className }: Props) {
-  const { score } = useSelector((state) => ({
+  const { score, cpu } = useSelector((state) => ({
+    cpu: state.cpu,
     score: state.score,
   }));
 
   return (
-    <article css={styles.container(player)} className={className}>
+    <article css={styles.container(player, cpu)} className={className}>
       <p css={styles.paragraph}>Player {player}</p>
       <h3 css={styles.h3}>{score[player]}</h3>
     </article>
