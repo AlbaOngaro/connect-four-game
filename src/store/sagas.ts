@@ -132,7 +132,8 @@ function* toggleCurrentPlayerSaga() {
   );
 
   if (mode === Mode.PvC && currentPlayer === Player.P2) {
-    yield delay(getRandomInt(1, TURN_DURATION) * 1000);
+    // this prevents race condition in timerSaga if cpu takes too long to act
+    yield delay(getRandomInt(1, TURN_DURATION / 2) * 1000);
     yield put({
       type: "SET_GRID",
       payload: {

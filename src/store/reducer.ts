@@ -43,7 +43,8 @@ export const reducer: Reducer<State, Action> = (
     case "START_NEW_TURN": {
       return {
         ...state,
-        currentPlayer: Player.P1,
+        currentPlayer:
+          state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
         winner: null,
         grid: getInitialGrid(),
         score: {
