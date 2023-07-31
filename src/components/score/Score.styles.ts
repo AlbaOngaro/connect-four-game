@@ -21,12 +21,17 @@ export const container = (player: Player, cpu: Player | null) => css`
   margin-top: 60%;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
+  padding: 16px 24px;
+
+  @media (min-width: 768px) {
+    gap: 24px;
+  }
 
   @media (min-width: 1440px) {
-    width: fit-content;
+    width: 16ch;
     flex-direction: column;
     align-items: center;
     gap: 0;
@@ -40,10 +45,15 @@ export const container = (player: Player, cpu: Player | null) => css`
 
   &:nth-of-type(1) {
     justify-self: flex-end;
-    padding: 16px 24px 16px 42px;
+
+    @media (min-width: 426px) {
+      padding: 16px 24px 16px 42px;
+      flex-direction: row;
+    }
 
     @media (min-width: 1440px) {
       padding: 42px 42px 16px;
+      flex-direction: column;
     }
 
     &::before {
@@ -60,10 +70,15 @@ export const container = (player: Player, cpu: Player | null) => css`
 
   &:nth-of-type(2) {
     justify-self: flex-start;
-    padding: 16px 42px 16px 24px;
+
+    @media (min-width: 426px) {
+      padding: 16px 42px 16px 24px;
+      flex-direction: row-reverse;
+    }
 
     @media (min-width: 1440px) {
       padding: 42px 42px 16px;
+      flex-direction: column;
     }
 
     &::before {
