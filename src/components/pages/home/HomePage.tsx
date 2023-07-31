@@ -5,6 +5,7 @@ import { useSelector } from "store/hooks";
 import { getMode } from "store/selectors";
 
 import { MenuContents } from "./contents/menu/MenuContents";
+import Head from "next/head";
 
 const DynamicGameContents = dynamic(
   () => import("./contents/game/GameContents").then((mod) => mod.GameContents),
@@ -18,9 +19,13 @@ export function HomePage() {
     mode: getMode(state),
   }));
 
-  if (mode !== null) {
-    return <DynamicGameContents />;
-  }
+  return (
+    <>
+      <Head>
+        <title>Connect Four</title>
+      </Head>
 
-  return <MenuContents />;
+      {mode !== null ? <DynamicGameContents /> : <MenuContents />}
+    </>
+  );
 }
