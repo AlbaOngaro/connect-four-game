@@ -1,11 +1,30 @@
-import { Reducer } from "react";
+import { Reducer } from "@reduxjs/toolkit";
+
+import { getInitialGrid } from "utils/getInitialGrid";
 
 import { State, Action } from "./types";
 import { Mode, Player } from "types";
-import { getInitialGrid } from "utils/getInitialGrid";
-import { hasFourInARow } from "utils/hasFourInARow";
 
-export const reducer: Reducer<State, Action> = (state, action) => {
+export const TURN_DURATION = 5;
+
+const initialState: State = {
+  seconds: TURN_DURATION,
+  mode: null,
+  currentPlayer: Player.P1,
+  score: {
+    [Player.P1]: 0,
+    [Player.P2]: 0,
+  },
+  paused: false,
+  grid: getInitialGrid(),
+  winner: null,
+  cpu: null,
+};
+
+export const reducer: Reducer<State, Action> = (
+  state = initialState,
+  action,
+) => {
   switch (action.type) {
     case "INCREASE_CURRENT_PLAYER_SCORE":
       return {
@@ -21,7 +40,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         currentPlayer:
           state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
       };
-    case 'START_NEW_TURN': {
+    case "START_NEW_TURN": {
       return {
         ...state,
         currentPlayer: Player.P1,
@@ -29,60 +48,57 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         grid: getInitialGrid(),
         score: {
           ...state.score,
-          [state.winner as Player]: state.score[state.winner as Player]+1,
-        }
-      }
-    };
-    case 'SET_WINNER':
+          [state.winner as Player]: state.score[state.winner as Player] + 1,
+        },
+      };
+    }
+    case "SET_WINNER":
       return {
         ...state,
         winner: state.currentPlayer,
-      }
-    case 'SET_GRID':
-      if (hasFourInARow(action.payload.grid)) {
-        return {
-          ...state,
-          grid: action.payload.grid,
-          winner: state.currentPlayer
-        }
-      }
-
+      };
+    case "SET_GRID":
       return {
         ...state,
         grid: action.payload.grid,
-        currentPlayer: state.currentPlayer === Player.P1 ? Player.P2 : Player.P1,
-      }
+      };
     case "SET_MODE": {
       if (action.payload.mode === Mode.PvC) {
         return {
           ...state,
           mode: action.payload.mode,
-          cpu: Player.P2
+          cpu: Player.P2,
         };
       }
 
       return {
         ...state,
         mode: action.payload.mode,
-        cpu: null
+        cpu: null,
       };
-    } 
+    }
     case "TOGGLE_PAUSED":
       return {
         ...state,
         paused: !state.paused,
       };
-    case 'RESET': {
+    case "SET_SECONDS":
       return {
         ...state,
+        seconds: action.payload.seconds,
+      };
+    case "RESET": {
+      return {
+        ...state,
+        winner: null,
         grid: getInitialGrid(),
         score: {
           [Player.P1]: 0,
           [Player.P2]: 0,
         },
         paused: false,
-        currentPlayer: Player.P1
-      }
+        currentPlayer: Player.P1,
+      };
     }
     default:
       return state;

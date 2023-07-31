@@ -12,14 +12,14 @@ export const button = (variant: Variant) => [
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-		transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 
     &:focus {
       outline: none;
     }
 
     &:hover {
-			cursor: pointer;
+      cursor: pointer;
       border: 3px solid var(--dark-purple, #5c2dd5);
       box-shadow: 0px 10px 0px 0px #5c2dd5;
     }
@@ -39,26 +39,27 @@ export const button = (variant: Variant) => [
       background: var(--red, #fd6687);
       color: var(--white, #fff);
     `,
-  variant === "tertiary" && css`
-    border-radius: 20px;
-    background: var(--dark-purple, #5C2DD5);
-    color: var(--white, #fff);
-    border: none;
-    box-shadow: none;
-    color: var(--white, #FFF);
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-    padding: 10px 20px;
-
-    &:hover {
-			cursor: pointer;
+  variant === "tertiary" &&
+    css`
+      border-radius: 20px;
+      background: var(--dark-purple, #5c2dd5);
+      color: var(--white, #fff);
       border: none;
       box-shadow: none;
-      background: var(--dark-purple, #fd6687);
-    }
-  `
+      color: var(--white, #fff);
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+      padding: 10px 20px;
+
+      &:hover {
+        cursor: pointer;
+        border: none;
+        box-shadow: none;
+        background: var(--dark-purple, #fd6687);
+      }
+    `,
 ];

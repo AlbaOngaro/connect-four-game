@@ -54,7 +54,7 @@ export const container = (player: Player) => css`
     justify-self: flex-start;
     padding: 16px 42px 16px 24px;
 
-		@media (min-width: 1440px) {
+    @media (min-width: 1440px) {
       padding: 42px 42px 16px;
     }
 

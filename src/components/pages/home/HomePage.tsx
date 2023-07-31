@@ -4,15 +4,15 @@ import { Button } from "components/button/Button";
 
 import * as styles from "./HomePage.styles";
 import { useRef } from "react";
-import { useDispatchGameStateAction } from "providers/game-state/GameStateProvider";
 import { Mode } from "types";
 import { useRouter } from "next/router";
+import { useDispatch } from "store/hooks";
 
 export function HomePage() {
   const router = useRouter();
   const dialog = useRef<HTMLDialogElement>(null);
 
-  const dispatch = useDispatchGameStateAction();
+  const dispatch = useDispatch();
 
   const start = (mode: Mode) => {
     dispatch({

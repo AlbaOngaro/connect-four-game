@@ -4,12 +4,12 @@ import { Score } from "components/score/Score";
 import { Player } from "types";
 import { useEffect, useRef } from "react";
 import { Button } from "components/button/Button";
-import { useDispatchGameStateAction } from "providers/game-state/GameStateProvider";
 import { useRouter } from "next/router";
+import { useDispatch } from "store/hooks";
 
 export function GamePage() {
   const router = useRouter();
-  const dispatch = useDispatchGameStateAction();
+  const dispatch = useDispatch();
   const dialog = useRef<HTMLDialogElement>(null);
 
   function openMenu() {

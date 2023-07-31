@@ -1,6 +1,7 @@
 import { Grid, Mode, Player } from "types";
 
 export interface State {
+  seconds: number;
   mode: Mode | null;
   currentPlayer: Player;
   score: {
@@ -33,22 +34,29 @@ interface TogglePausedAction {
 }
 
 interface StartNewTurnAction {
-  type: 'START_NEW_TURN';
+  type: "START_NEW_TURN";
 }
 
 interface SetWinnerAction {
-  type: 'SET_WINNER';
+  type: "SET_WINNER";
 }
 
 interface SetGridAction {
-  type: 'SET_GRID';
+  type: "SET_GRID";
   payload: {
-    grid: number[][]
-  }
+    grid: number[][];
+  };
 }
 
 interface ResetAction {
-  type: 'RESET'
+  type: "RESET";
+}
+
+interface SetSecondsAction {
+  type: "SET_SECONDS";
+  payload: {
+    seconds: number;
+  };
 }
 
 export type Action =
@@ -56,7 +64,8 @@ export type Action =
   | ToggleCurrentPlayerAction
   | IncreaseCurrentPlayerScoreAction
   | TogglePausedAction
-  | StartNewTurnAction 
+  | StartNewTurnAction
   | SetWinnerAction
   | SetGridAction
-  | ResetAction;
+  | ResetAction
+  | SetSecondsAction;

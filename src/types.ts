@@ -7,5 +7,5 @@ export enum Player {
 
 export enum Mode {
   PvP,
-  PvC
+  PvC,
 }

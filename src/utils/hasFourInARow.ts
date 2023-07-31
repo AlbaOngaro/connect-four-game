@@ -2,14 +2,17 @@ import { Grid } from "types";
 
 export function hasFourInARow(grid: Grid): boolean {
   const rows = grid.length - 1;
-  
+
   for (let row = rows; row >= 0; row--) {
     for (let col = 0; col < grid[row].length; col++) {
       const cell = grid[row][col];
 
       // four in a row
       const nextFourInRow = grid[row].slice(col, col + 4);
-      if (nextFourInRow.length === 4 && nextFourInRow.every((val) => val > 0 && val === cell)) {
+      if (
+        nextFourInRow.length === 4 &&
+        nextFourInRow.every((val) => val > 0 && val === cell)
+      ) {
         return true;
       }
 
