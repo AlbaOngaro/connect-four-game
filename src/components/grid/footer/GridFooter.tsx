@@ -1,90 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import { useGameStateContext } from "providers/game-state/GameStateProvider";
 import * as styles from "./GridFooter.styles";
-import { useEffect, useRef, useState } from "react";
 import { Button } from "components/button/Button";
-import { addRandomPieceToGrid } from "utils/addRandomPieceToGrid";
-
-function getRandomInt(min: number, max: number) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-const TURN_DURATION = 15;
+import { useDispatch, useSelector } from "store/hooks";
+import { getGridFooterData } from "store/selectors";
 
 export function GridFooter() {
-  const timer = useRef<NodeJS.Timer>();
-  const {
-    state: { winner, currentPlayer, grid, cpu, paused, score },
-    dispatch,
-  } = useGameStateContext();
-
-  const [seconds, setSeconds] = useState(TURN_DURATION);
-
-  useEffect(() => {
-    if (paused) {
-      clearInterval(timer.current);
-      timer.current = undefined;
-    } else {
-      clearInterval(timer.current);
-      timer.current = setInterval(() => {
-        setSeconds((curr) => {
-          if (curr - 1 >= 0) {
-            return curr - 1;
-          }
-  
-          return curr;
-        });
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(timer.current);
-    }
-  }, [paused]);
-
-  useEffect(() => {
-    if (seconds === 0) {
-      dispatch({
-        type: "SET_GRID",
-        payload: {
-          grid: addRandomPieceToGrid(grid, currentPlayer),
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [seconds]);
-
-  useEffect(() => {
-    setSeconds(TURN_DURATION);
-  }, [currentPlayer]);
-
-  useEffect(() => {
-    if (currentPlayer === cpu) {
-      const timeout = setTimeout(() => {
-        dispatch({
-          type: "SET_GRID",
-          payload: {
-            grid: addRandomPieceToGrid(grid, currentPlayer),
-          },
-        });
-
-        clearTimeout(timeout);
-      }, getRandomInt(1, TURN_DURATION) * 1000);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPlayer, cpu]);
-
-  useEffect(() => {
-    if (winner) {
-      clearInterval(timer.current);
-    }
-  }, [winner]);
-
-  useEffect(() => {
-    setSeconds(TURN_DURATION);
-  }, [score]);
+  const dispatch = useDispatch();
+  const { winner, currentPlayer, seconds } = useSelector(getGridFooterData);
 
   if (winner) {
     return (
@@ -98,16 +20,6 @@ export function GridFooter() {
               dispatch({
                 type: "START_NEW_TURN",
               });
-
-              timer.current = setInterval(() => {
-                setSeconds((curr) => {
-                  if (curr - 1 >= 0) {
-                    return curr - 1;
-                  }
-
-                  return curr;
-                });
-              }, 1000);
             }}
           >
             Play again

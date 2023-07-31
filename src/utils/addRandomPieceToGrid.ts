@@ -26,7 +26,7 @@ export function getWeighedCoordinates(
 ): Map<Coordinate, number> {
   const map = new Map<Coordinate, number>();
 
-  coordinates.forEach(([x, y], i) => {
+  coordinates.forEach(([x, y]) => {
     const currRow = grid[x];
     const nextRow = grid[x + 1];
     const secondNextRow = grid[x + 2];
@@ -58,7 +58,8 @@ export function getWeighedCoordinates(
 }
 
 export function getRandomWeighedCoordinate(
-  spec: Map<Coordinate, number>
+  spec: Map<Coordinate, number>,
+  // @ts-ignore
 ): Coordinate {
   let sum = 0;
   let r = Math.random();

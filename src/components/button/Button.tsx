@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
-import * as styles from './Button.styles';
+import * as styles from "./Button.styles";
 
 export type Variant = "primary" | "secondary" | "tertiary" | "danger";
 

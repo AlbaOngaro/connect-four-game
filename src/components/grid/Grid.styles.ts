@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const container = css`
   background-image: url("/images/board-layer-black-large.svg");
   background-repeat: no-repeat;
-	background-size: cover;
+  background-size: cover;
   position: relative;
   width: 100%;
   max-width: 632px;

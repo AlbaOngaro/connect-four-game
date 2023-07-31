@@ -1,15 +1,14 @@
 import { Grid } from "components/grid/Grid";
-import * as styles from "./GamePage.styles";
+import * as styles from "./GameContents.styles";
 import { Score } from "components/score/Score";
 import { Player } from "types";
 import { useEffect, useRef } from "react";
 import { Button } from "components/button/Button";
-import { useDispatchGameStateAction } from "providers/game-state/GameStateProvider";
-import { useRouter } from "next/router";
+import { useDispatch } from "store/hooks";
+import { startTimer } from "store/actions";
 
-export function GamePage() {
-  const router = useRouter();
-  const dispatch = useDispatchGameStateAction();
+export function GameContents() {
+  const dispatch = useDispatch();
   const dialog = useRef<HTMLDialogElement>(null);
 
   function openMenu() {
@@ -25,6 +24,8 @@ export function GamePage() {
   }
 
   useEffect(() => {
+    dispatch(startTimer());
+
     function handleKeyDown(e: KeyboardEvent) {
       if (e.code === "Escape") {
         e.preventDefault();
@@ -52,7 +53,7 @@ export function GamePage() {
           variant="tertiary"
           onClick={() =>
             dispatch({
-              type: "RESET",
+              type: "RESTART",
             })
           }
         >
@@ -84,7 +85,7 @@ export function GamePage() {
           variant="secondary"
           onClick={() => {
             dispatch({
-              type: "RESET",
+              type: "RESTART",
             });
 
             dialog.current?.close();
@@ -99,7 +100,6 @@ export function GamePage() {
             dispatch({
               type: "RESET",
             });
-            router.push("/");
           }}
         >
           Quit Game

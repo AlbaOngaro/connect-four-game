@@ -41,16 +41,16 @@ export const dialog = css`
   width: 480px;
   flex-shrink: 0;
   padding: 32px;
-	position: relative;
-	overflow: visible;
+  position: relative;
+  overflow: visible;
 
-	&::backdrop {
-		background: var(--purple, #7945FF);
-	}
+  &::backdrop {
+    background: var(--purple, #7945ff);
+  }
 
-	&:focus {
-		outline: none;
-	}
+  &:focus {
+    outline: none;
+  }
 
   & h2 {
     color: var(--black, #000);
@@ -82,26 +82,25 @@ export const dialog = css`
     line-height: normal;
   }
 
-	& ol {
-		padding: 0 0 0 16px;
-		& li {
+  & ol {
+    padding: 0 0 0 16px;
+    & li {
+      &::marker {
+        margin-right: 8px;
+      }
+    }
+  }
 
-			&::marker {
-				margin-right: 8px;
-			}
-		}
-	}
-
-	& button {
-		width: 64px;
-		height: 64px;
-		padding: 0;
-		margin: 0;
-		position: absolute;
-		bottom: -32px;
-		left: 50%;
-		transform: translateX(-50%);
-		border-radius: 100vw;
-		overflow: hidden;
-	}
+  & button {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    bottom: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 100vw;
+    overflow: hidden;
+  }
 `;

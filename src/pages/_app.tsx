@@ -1,17 +1,25 @@
 import { Global } from "@emotion/react";
 import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
+import { Provider } from "react-redux";
+import { store } from "store";
+import { useSelector } from "store/hooks";
+import { getMode } from "store/selectors";
 
-import { GameStateProvider } from "providers/game-state/GameStateProvider";
 import { globalStyles } from "styles/global.styles";
 
-export default function App({ Component, pageProps }: AppProps) {
-  const { asPath } = useRouter();
+function GlobalStylesWrapper() {
+  const { mode } = useSelector((state) => ({
+    mode: getMode(state),
+  }));
 
+  return <Global styles={globalStyles(mode !== null, null)} />;
+}
+
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <GameStateProvider>
-      <Global styles={globalStyles(asPath === "/game", null)} />
+    <Provider store={store}>
+      <GlobalStylesWrapper />
       <Component {...pageProps} />
-    </GameStateProvider>
+    </Provider>
   );
 }

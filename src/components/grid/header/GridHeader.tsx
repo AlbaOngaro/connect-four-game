@@ -1,13 +1,13 @@
 import { Player } from "types";
 
 import * as styles from "./GridHeader.styles";
-import { useGameStateContext } from "providers/game-state/GameStateProvider";
+import { useDispatch, useSelector } from "store/hooks";
+import { getGridHeaderData } from "store/selectors";
 
 export function GridHeader() {
-  const {
-    state: { grid, winner, currentPlayer, cpu },
-    dispatch,
-  } = useGameStateContext();
+  const { grid, winner, currentPlayer, cpu } = useSelector(getGridHeaderData);
+
+  const dispatch = useDispatch();
 
   function addPieceAtColumn(column: number) {
     const updateGrid = () => {

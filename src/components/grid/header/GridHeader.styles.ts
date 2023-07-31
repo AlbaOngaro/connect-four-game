@@ -14,10 +14,10 @@ export const button = css`
   background-color: transparent;
   border: none;
   padding: 0;
-	opacity: 0;
+  opacity: 0;
 
   &:hover:not(:disabled) {
-		outline: none;
-		opacity: 1;
+    outline: none;
+    opacity: 1;
   }
 `;
